@@ -207,7 +207,7 @@ class Log():
 			return False
 
 		elif type(exception) == MaxReconnectAttempts:
-			Log.logger.error("Max Reconnect Attempts Reached. Exiting...")
+			Log.logger.error("Max Twitch Reconnect Attempts Reached. Exiting...")
 			return True
 
 		# Config Errors

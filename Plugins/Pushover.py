@@ -2,6 +2,7 @@ from Validate import check_keys, ALERT_TYPES
 from Exceptions import ConfigFormatError
 from Notifications import Notifications
 from Config import Config
+import os
 import time
 
 
@@ -9,6 +10,9 @@ import time
 class Pushover():
 
 	SETTINGS_KEY = "Pushover Settings"
+	ENV_VAR_SETTINGS = [['API Token', 'PUSHOVER_API_TOKEN'],
+					    ['Group Key', 'PUSHOVER_GROUP_KEY'],
+					    ['Devices', 'PUSHOVER_DEVICES']]
 
 
 	# Makes Sure that the Plugin Settings Given in the Config File Are Valid
@@ -34,6 +38,11 @@ class Pushover():
 		# Check Key Datatypes
 		warnings = check_keys(Pushover.SETTINGS_KEY, Config.config_file[Pushover.SETTINGS_KEY], optional_keys=KEYS)
 		global_settings = Config.parse_preferences("GLOBAL", Pushover)
+
+		# Overwrite settings from ENV vars if present
+		for setting, env_var in Pushover.ENV_VAR_SETTINGS:
+			if env_var in os.environ:
+				global_settings[setting] = os.getenv(env_var)
 
 		for streamer in Config.config_file["Streamers"]:
 			streamer_settings = Config.parse_preferences(streamer, Pushover)
