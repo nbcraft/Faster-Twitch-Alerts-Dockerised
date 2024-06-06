@@ -10,6 +10,11 @@ class Discord():
 
 	# Config File Key With Plugin's Settings
 	SETTINGS_KEY = "Discord Settings"
+	# config file values to overwrite using ENV vars instead if present
+	ENV_VAR_SETTINGS = [
+		['Webhook URL', 'DISCORD_WEBHOOK'],
+		['Discord ID', 'DISCORD_ID']
+	]
 
 
 	# Makes Sure that the Plugin Settings Given in the Config File Are Valid

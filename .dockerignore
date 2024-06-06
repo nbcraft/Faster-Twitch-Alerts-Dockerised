@@ -1,12 +1,19 @@
 # Hide the Actual Config File Since it May Contain Webhook URL's and API Keys
 config.json
+Config Examples/
 
 # Hide Junk Files
 __pycache__/
 Junk/
 logs/*
-!logs/.keep
 Test-Bench.py
 
-# Hide docker build output
+# Hide Docker stuff
+Dockerfile
+docker-compose.yml
 faster_twitch_alerts.tar
+.dockerignore
+
+# Hide git stuff
+.git/
+.gitignore

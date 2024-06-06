@@ -3,6 +3,7 @@ from Config import Config
 from Exceptions import *
 import aiohttp
 import asyncio
+import os
 import time
 
 
@@ -18,8 +19,8 @@ class TwitchAPI():
 		TwitchAPI.auth_dict = None
 		
 		# Load Constants
-		TwitchAPI.CLIENT_ID = config["Twitch Settings"]["Client ID"]
-		TwitchAPI.SECRET = config["Twitch Settings"]["Secret"]
+		TwitchAPI.CLIENT_ID = os.getenv('TWITCH_CLIENT_ID', config["Twitch Settings"]["Client ID"])
+		TwitchAPI.SECRET = os.getenv('TWITCH_SECRET', config["Twitch Settings"]["Secret"])
 		TwitchAPI.RECONNECT_ATTEMPTS = config["Twitch Settings"]["Reconnect Attempts"]
 		TwitchAPI.RECONNECT_COOLDOWN = config["Twitch Settings"]["Reconnect Cooldown"]
 

@@ -103,6 +103,7 @@ class Config():
 
 
 	# A General Function For Parsing Global and Streamer-Specific Settings From the Config File
+	# Also supports overwriting settings with ENV vars defined in each service
 	# Pre-Condition: A Valid Settings Parameter Has Been Provided in the Config File
 	# Post-Condition: A Dictionary of Settings Has Been Returned
 	def parse_preferences(streamer, service):
@@ -115,6 +116,11 @@ class Config():
 		# Load All Settings for Service
 		if streamer == "GLOBAL":
 			settings = Config.config_file[service.SETTINGS_KEY]
+			# Overwrite settings from ENV vars if present
+			if hasattr(service, 'ENV_VAR_SETTINGS'):
+				for setting, env_var in (service.ENV_VAR_SETTINGS or []):
+					if env_var in os.environ:
+						settings[setting] = os.getenv(env_var)
 		elif service.SETTINGS_KEY in Config.config_file["Streamers"][streamer]:
 			settings = Config.config_file["Streamers"][streamer][service.SETTINGS_KEY]
 		else:

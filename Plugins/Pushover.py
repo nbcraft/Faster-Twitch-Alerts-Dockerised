@@ -8,7 +8,14 @@ import time
 # A Class for Constructing Pushover Notifications
 class Pushover():
 
+	# Config File Key With Plugin's Settings
 	SETTINGS_KEY = "Pushover Settings"
+	# config file values to overwrite using ENV vars instead if present
+	ENV_VAR_SETTINGS = [
+		['API Token', 'PUSHOVER_API_TOKEN'],
+		['Group Key', 'PUSHOVER_GROUP_KEY'],
+		['Devices', 'PUSHOVER_DEVICES']
+	]
 
 
 	# Makes Sure that the Plugin Settings Given in the Config File Are Valid
