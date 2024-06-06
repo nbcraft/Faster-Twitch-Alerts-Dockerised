@@ -22,7 +22,7 @@ This is a fork of https://github.com/hslarson/Faster-Twitch-Alerts with the goal
 
 ### Building the Docker image locally
 
-If you chose do not use the image already commited to Docker Hub (see below), you can build the Docker image yourself locally:
+If you chose to not use the image already commited to Docker Hub (see below), you can build the Docker image yourself locally:
 - Have the Docker engine installed and running on your computer
 - Clone this repository locally
 - With a CLI located inside the cloned repository, run: `docker build -t faster_twitch_alerts:1.0 .`

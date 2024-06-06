@@ -2,7 +2,6 @@ from Validate import check_keys, ALERT_TYPES
 from Exceptions import ConfigFormatError
 from Notifications import Notifications
 from Config import Config
-import os
 import time
 
 
@@ -11,8 +10,11 @@ class Discord():
 
 	# Config File Key With Plugin's Settings
 	SETTINGS_KEY = "Discord Settings"
-	ENV_VAR_SETTINGS = [['Webhook URL', 'DISCORD_WEBHOOK'],
-					    ['Discord ID', 'DISCORD_ID']]
+	# config file values to overwrite using ENV vars instead if present
+	ENV_VAR_SETTINGS = [
+		['Webhook URL', 'DISCORD_WEBHOOK'],
+		['Discord ID', 'DISCORD_ID']
+	]
 
 
 	# Makes Sure that the Plugin Settings Given in the Config File Are Valid
@@ -35,11 +37,6 @@ class Discord():
 		# Check Key Datatypes
 		warnings = check_keys(Discord.SETTINGS_KEY, Config.config_file[Discord.SETTINGS_KEY],optional_keys=KEYS)
 		global_settings = Config.parse_preferences("GLOBAL", Discord)
-
-		# Overwrite settings from ENV vars values if present
-		for setting, env_var in Discord.ENV_VAR_SETTINGS:
-			if env_var in os.environ:
-				global_settings[setting] = os.getenv(env_var)
 
 		for streamer in Config.config_file["Streamers"]:
 			streamer_settings = Config.parse_preferences(streamer, Discord)

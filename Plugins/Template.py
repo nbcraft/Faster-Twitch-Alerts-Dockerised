@@ -5,6 +5,10 @@ class myPlugin():
 
 	# Where are you storing your plugin's settings in the config file?
 	SETTINGS_KEY = "MY PLUGIN SETTINGS"
+	# config file values to overwrite using ENV vars instead if present
+	ENV_VAR_SETTINGS = [
+		['config.json key', 'env var name']
+	]
 
 	# Make sure the plugin's settings were specified correctly in config file
 	# You can optinally return a list of warning strings to display in the log file
