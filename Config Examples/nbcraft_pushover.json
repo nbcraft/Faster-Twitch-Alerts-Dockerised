@@ -1,0 +1,48 @@
+{
+	"Twitch Settings" : {
+		"Client ID" : "PLEASE SET VIA ENV VAR",
+		"Secret" : "PLEASE SET VIA ENV VAR",
+		"Reconnect Attempts" : 10,
+		"Reconnect Cooldown" : 60,
+		"Refresh Rate" : 0.1
+	},
+	"Logger Settings" : {
+		"Log Level" : "Warning",
+		"Log Filepath" : "logs/twitch_alerts.log",
+		"Message Text" : "'{message.capitalize()}' Alert for {name}"
+	},
+	"Discord Settings" : {},
+	"Pushover Settings" : {
+		"API Token" : "PLEASE SET VIA ENV VAR",
+		"Group Key" : "PLEASE SET VIA ENV VAR",
+		"Devices" : "PLEASE SET VIA ENV VAR",
+		"Priority" : 1,
+		"Soon Cooldown" : 1,
+		"Alerts" : {
+			"live"    : true,
+			"title"   : true,
+			"game"    : true,
+			"offline" : false,
+			"ban"     : true,
+			"unban"   : false
+		},
+		"Message Title" : {
+			"live" : "\ud83d\udce1 {name} is live right now!",
+			"title" : "\u231b {name} changed their stream title!",
+			"game" : "\u231b {name} changed their stream game!",
+			"offline" : "\ud83d\ude14 {name} Just Went Offline",
+			"ban" : "\u2696\ufe0f {name} Just Got Banned",
+			"unban" : "\ud83c\udf89 {name} has Been Unbanned!"
+		},
+		"Message Text" : "{title} - {game}",
+		"Embed URL" : "https://www.twitch.tv/{name.lower()}",
+		"URL Title" : "Go To Stream",
+		"Sound" : "Some Sound"
+	},
+	"Streamers" : {
+		"2BCSuperb" : {
+			"Ban Status" : false,
+			"User ID" : "53371447"
+		}
+	}
+}

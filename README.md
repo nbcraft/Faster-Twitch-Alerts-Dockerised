@@ -1,3 +1,72 @@
+### _See original documentation [right below](#faster-twitch-alerts)_
+
+# __Faster Twitch Alerts Dockerised__
+
+This is a fork of https://github.com/hslarson/Faster-Twitch-Alerts with the goal of providing a dockerised version of the program, and easily run it locally or on a Synology NAS using Container Manager.  
+
+### Added Features:
+
+- `.dockerignore` to limit what gets included in docker images
+- `Dockerfile` to generate the image to run in a container
+- `docker-compose.yml` file to easily create project in Synology Container Manager and start the container
+- `ENV var` support for some secret and sensitive variables to overwrite `config.json`:  
+  | ENV var name         | `config.json` value overwritten    |
+  |----------------------|------------------------------------|
+  | `TWITCH_CLIENT_ID`   | `"Twitch Settings"."Client ID"`    |
+  | `TWITCH_SECRET`      | `"Twitch Settings"."Secret"`       |
+  | `PUSHOVER_API_TOKEN` | `"Pushover Settings"."API Token"`  |
+  | `PUSHOVER_GROUP_KEY` | `"Pushover Settings"."Group Key"`  |
+  | `PUSHOVER_DEVICES`   | `"Pushover Settings"."Devices"`    |
+  | `DISCORD_WEBHOOK`    | `"Discord Settings"."Webhook URL"` |
+  | `DISCORD_ID`         | `"Discord Settings"."Discord ID"`  |
+
+### Building the Docker image locally
+
+If you chose do not use the image already commited to Docker Hub (see below), you can build the Docker image yourself locally:
+- Have the Docker engine installed and running on your computer
+- Clone this repository locally
+- With a CLI located inside the cloned repository, run: `docker build -t faster_twitch_alerts:1.0 .`
+  - This will build the image and save it in the docker cache
+- Copy the image locally by running: `docker save --output faster_twitch_alerts.tar faster_twitch_alerts`
+  - This will give you a `faster_twitch_alerts.tar` that we will load into Synology's Container Manager
+
+### Running the container on a Synology NAS
+
+If you haven't done any setup for Docker on your NAS yet, I recommend following guides to set proper users, groups, directories, and network.  
+One such guide: https://drfrankenstein.co.uk/category/initial-setup-7-2/
+
+#### Option 1: Using the image already commited to Docker Hub
+
+#### Option 2: Using the image built locally manually
+
+Using the image built previously ([see above](#building-the-docker-image-locally)):
+- From your Synology Nas' web interface, open `Container Manager` and go to the `Image` tab:
+- Import the newly created image using `Action -> Import -> Add From File` and either:
+  - `From local device` and then browse to the repository folder where you should have saved `faster_twitch_alerts.tar`
+  - `From this DSM` if you can copy the `faster_twitch_alerts.tar` image on your NAS and access it through this menu
+- After a refresh, click on your `faster_twitch_alerts:1.0` image and then hit `Run` top right
+- Chose a `Container name`, enable `resource limitation` if you wish to (this should be light weight), and enable `auto-restart`
+- Hit `Next` and under `Volume Settings`:
+  - click `Add file` and navigate to where you stored your `config.json` file on your NAS (that your docker user can access), select it and map it to `/usr/src/app/config.json` in your container, with `Read/Write` permissions
+  - If you wish to have easy access to logs, create a `logs` folder on your NAS (that your docker user can access) and click `Add folder`, select that folder, and map it to `/usr/src/app/logs`, with `Read/Write` permissions
+- Under `Environment` you can add the environment variables you'd rather use here instead of through the `config.json` file (see the list above), and clear the corresponding keys from the `config.json` document
+- The rest of the settings should be fine, ensure the selected Network can access the internet
+- Complete the Wizard and run your container, you should be up and running
+
+### Running the container on your local machine:
+
+Once you have built the docker image locally ([see above](#building-the-docker-image-locally)):
+- Build a `config.json` file at the root of the repository from the provided examples and the main documentation below
+- Run this command from the repository root which will start a container in detached mode from the image and run the program:  
+  `docker run -v $PWD/config.json:/usr/src/app/config.json -i -d -t --restart=unless-stopped --name faster_twitch_alerts faster_twitch_alerts:1.0`
+- If you wish to use the env vars listed above, you can [pass them](https://docs.docker.com/reference/cli/docker/container/run/#env) to the `docker run` command, and remove them from the `config.json` file
+- You can exec into the container with `docker exec -it faster_twitch_alerts /bin/bash`
+
+### Tool: Twitch Username to Channel ID
+
+As an alternative to using `Utils/set_config.py`, this tool makes it easy to find a Twitch channel ID:  
+https://www.streamweasels.com/tools/convert-twitch-username-to-user-id
+
 # __Faster Twitch Alerts__
 
 <span>
