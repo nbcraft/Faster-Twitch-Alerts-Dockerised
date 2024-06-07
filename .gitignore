@@ -9,4 +9,4 @@ logs/*
 Test-Bench.py
 
 # Hide docker build output
-faster_twitch_alerts.tar
+faster-twitch-alerts.tar

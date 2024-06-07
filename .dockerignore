@@ -3,7 +3,7 @@ config.json
 Config Examples/
 
 # Hide Junk Files
-__pycache__/
+**/__pycache__/
 Junk/
 logs/*
 Test-Bench.py
@@ -11,7 +11,7 @@ Test-Bench.py
 # Hide Docker stuff
 Dockerfile
 docker-compose.yml
-faster_twitch_alerts.tar
+faster-twitch-alerts.tar
 .dockerignore
 
 # Hide git stuff

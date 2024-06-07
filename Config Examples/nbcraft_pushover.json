@@ -17,7 +17,7 @@
 		"Group Key" : "PLEASE SET VIA ENV VAR",
 		"Devices" : "PLEASE SET VIA ENV VAR",
 		"Priority" : 1,
-		"Soon Cooldown" : 1,
+		"Soon Cooldown" : 30,
 		"Alerts" : {
 			"live"    : true,
 			"title"   : true,

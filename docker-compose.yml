@@ -1,0 +1,12 @@
+version: '3.5'
+services:
+  faster-twitch-alerts-compose:
+    image: nbcraft/faster-twitch-alerts:1.0
+    container_name: faster-twitch-alerts-compose
+    network_mode: 'bridge'
+    volumes:
+      - /volume1/docker/faster-twitch-alerts-compose/config.json:/usr/src/app/config.json
+      - /volume1/docker/faster-twitch-alerts-compose/logs:/usr/src/app/logs
+    restart: 'unless-stopped'
+    environment:
+      - TZ='America/Vancouver'
